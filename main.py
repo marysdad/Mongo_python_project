@@ -5,7 +5,7 @@ from pprint import pprint
 
 client = pymongo.MongoClient()
 
-# db = client['starwars']
+db = client['starwars']
 #
 # luke = db.characters.find_one({"name": "Luke Skywalker"})
 
@@ -15,7 +15,7 @@ ships = requests.get("https://swapi.dev/api/starships/?page=1")
 ships_data = ships.json()
 
 # pprint(ships_data)
-page = 1
+page = 0
 ship_number = 0
 
 while ships_data["count"] :
@@ -30,7 +30,7 @@ while ships_data["count"] :
     print("##########################################################################################")
     print(f"PAGE {page}")
     # pprint(ships_data)
-    ship_number = 0
+
     for ship in ships_data["results"]:
         print("SHIP ####################################")
         pprint(ship["name"])
@@ -40,7 +40,12 @@ while ships_data["count"] :
             # print(pilot)
             pilot_data = requests.get(pilot)
             pd = pilot_data.json()
-            pprint(pd["name"])
+
+            pilot_name = pd["name"]
+            pilot_id = db.characters.find_one({"name": pilot_name},{"_id","name"})
+            print("         pilot ", pilot_name, " ", pilot_id )
+
+
     print(f"There are {ship_number} ships")
 
 
