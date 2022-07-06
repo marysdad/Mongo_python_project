@@ -35,6 +35,7 @@ while ships_data["count"] :
         print("SHIP ####################################")
         pprint(ship["name"])
         ship_number += 1
+        pilots_id_list = []
         for pilot in ship["pilots"]:
             print("PILOT ####################################")
             # print(pilot)
@@ -42,14 +43,20 @@ while ships_data["count"] :
             pd = pilot_data.json()
 
             pilot_name = pd["name"]
-            pilot_id = db.characters.find_one({"name": pilot_name},{"_id","name"})
+            pilot_id = db.characters.find_one({"name": pilot_name},{"_id"})
             print("         pilot ", pilot_name, " ", pilot_id )
+            # ship["pilots"] = ship["pilots":[].append(pilot_id)]
+
+            if pilot:
+                pilots_id_list.append(pilot_id)
+        ship["pilots"] = pilots_id_list
+
 
 
     print(f"There are {ship_number} ships")
 
 
-
+    pprint(ships_data)
 
 
 
