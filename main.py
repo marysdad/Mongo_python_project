@@ -18,20 +18,26 @@ ships_data = ships.json()
 page = 0
 ship_number = 0
 
-while ships_data["count"] :
+doing = True
+while doing != False :
     # pprint(ships_data)
 
     page += 1
 
     ships = requests.get(f"https://swapi.dev/api/starships/?page={page}")
-
+    if ships_data["results"] == "None":
+        # doing = False
+        break
 
     ships_data = ships.json()
     print("##########################################################################################")
     print(f"PAGE {page}")
     # pprint(ships_data)
 
+
+
     for ship in ships_data["results"]:
+
         print("SHIP ####################################")
         pprint(ship["name"])
         ship_number += 1
@@ -57,6 +63,8 @@ while ships_data["count"] :
 
 
     pprint(ships_data)
+    if  ships_data["next"] == None :
+        break
 
 
 
