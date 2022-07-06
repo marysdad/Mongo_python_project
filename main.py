@@ -9,6 +9,7 @@ db = client['starwars']
 #
 # luke = db.characters.find_one({"name": "Luke Skywalker"})
 
+# this is star ships collection for the db that I will populate near the end of the code.
 ship_coll = db["starships"]
 
 ships = requests.get("https://swapi.dev/api/starships/?page=1")
@@ -71,7 +72,7 @@ while doing != False :
                 pilots_id_list.append(pilot_id)
 
         ship["pilots"] = pilots_id_list # this replaces the list of pilot API with the list of pilot ID
-        ship_coll.insert_one(ship)
+        ship_coll.insert_one(ship) # this adds the updated ship record with the pilot ID in the mongo ships collection
 
 
     print(f"There are {ship_number} ships")
@@ -87,6 +88,23 @@ while doing != False :
 
 # this displaces ship data set with pilot API replace with the pilot IDs
 pprint(ships_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
