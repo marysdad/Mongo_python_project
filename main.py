@@ -9,6 +9,7 @@ db = client['starwars']
 #
 # luke = db.characters.find_one({"name": "Luke Skywalker"})
 
+ship_coll = db["starships"]
 
 ships = requests.get("https://swapi.dev/api/starships/?page=1")
 
@@ -17,6 +18,8 @@ ships_data = ships.json()
 # pprint(ships_data)
 page = 0
 ship_number = 0
+
+
 
 
 # this loops through all the ship data and only ends if there is no data left
@@ -68,10 +71,11 @@ while doing != False :
                 pilots_id_list.append(pilot_id)
 
         ship["pilots"] = pilots_id_list # this replaces the list of pilot API with the list of pilot ID
-
+        ship_coll.insert_one(ship)
 
 
     print(f"There are {ship_number} ships")
+
 
 
 
