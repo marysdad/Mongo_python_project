@@ -7,7 +7,6 @@ client = pymongo.MongoClient()
 
 db = client['starwars']
 #
-# luke = db.characters.find_one({"name": "Luke Skywalker"})
 
 # this is star ships collection for the db that I will populate near the end of the code.
 ship_coll = db["starships"]
