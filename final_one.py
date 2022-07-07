@@ -1,20 +1,18 @@
-# import pymongo
+import pymongo
 import definitions
 
 from pprint import pprint
 
-# client = pymongo.MongoClient()
-#
-# db = client['starwars']
+client = pymongo.MongoClient()
+
+db = client['starwars']
 
 
-
-
-#
+def insert_ships_collections(ship):
+    ship_coll = db["starships"]
+    ship_coll.insert_one(ship)
 
 # this is star ships collection for the db that I will populate near the end of the code.
-
-
 
 ships_data = definitions.db_setup()
 
@@ -53,7 +51,7 @@ while doing != False :
         # loops through each pilot API if there is more than one
 
 
-        definitions.replace_pilotAPI_with_pilotID(ship)
+        definitions.replace_pilotAPI_with_pilotID(ship,db)
 
     print(f"There are {ship_number} ships")
 

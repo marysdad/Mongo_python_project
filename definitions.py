@@ -1,11 +1,12 @@
-import requests
 import pymongo
+import requests
 
-
+from pprint import pprint
 
 client = pymongo.MongoClient()
 
 db = client['starwars']
+
 
 
 def db_setup():
@@ -32,12 +33,10 @@ def get_pilot_name(pilot):
 
 
 
-def replace_pilotAPI_with_pilotID(ship):
-
-
+def replace_pilotAPI_with_pilotID(ship,db):
+    pilots_id_list = []  # this is list for pilot ids to replace the list of pilot APIs
 
     for pilot in ship["pilots"]:
-        pilots_id_list = [] # this is list for pilot ids to replace the list of pilot APIs
 
         print("PILOT ####################################")
         # print(pilot)
@@ -45,13 +44,14 @@ def replace_pilotAPI_with_pilotID(ship):
         pilot_name = get_pilot_name(pilot)
 
         # this gets pilot id from DB that matches pilot name from pilot API
-        pilot_id = db.characters.find_one({"name": pilot_name}, {"_id"})
+        pilot_id = db.characters.find_one({"name": pilot_name}, {"_id":1})
 
         print("         pilot ", pilot_name, " ", pilot_id)
 
         # if ship does have pilots, add pilot ID to the list of pilot IDs for this ship
-        if pilot:
-            pilots_id_list.append(pilot_id)
+        # if len(pilot) != 0:
+        pilots_id_list.append(pilot_id['_id'])
 
-        ship["pilots"] = pilots_id_list  # this replaces the list of pilot API with the list of pilot ID
-        insert_ships_collections(ship)
+    ship["pilots"] = pilots_id_list  # this replaces the list of pilot API with the list of pilot ID
+        # print("line 58 ",ship)
+    insert_ships_collections(ship)
