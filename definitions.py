@@ -8,22 +8,26 @@ client = pymongo.MongoClient()
 db = client['starwars']
 
 
-
+#test
 def db_setup():
 
     ships = requests.get("https://swapi.dev/api/starships/?page=1")
     return ships.json()
 
+
+#test
 # this adds the updated ship record with the pilot ID in the mongo ships collection
 def insert_ships_collections(ship):
 
     ship_coll = db["starships"]
     ship_coll.insert_one(ship)
 
+#test
 def ships_api_call_back(api):
     ships = requests.get(api)
     return ships.json()
 
+#test
 def get_pilot_name(pilot):
     # This is make pilot API call to get the pilot data and store in pd
     pilot_data = requests.get(pilot)

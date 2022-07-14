@@ -19,7 +19,7 @@ ships_data = db_setup()
 
 
 # this adds the updated ship record with the pilot ID in the mongo ships collection
-def insert_ships_collections(ships):
+def insert_ships_collections(ship):
 
     ship_coll = db["starships"]
     ship_coll.insert_one(ship)
